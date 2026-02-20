@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz ม.6 ของแข็งและของเหลว</title>
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  margin:0;
+}
+.container{
+  background:#111827;
+  padding:30px;
+  border-radius:15px;
+  width:90%;
+  max-width:600px;
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+h1{
+  text-align:center;
+  color:#38bdf8;
+}
+button{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border:none;
+  border-radius:8px;
+  background:#1f2937;
+  color:white;
+  cursor:pointer;
+  transition:0.2s;
+}
+button:hover{
+  background:#38bdf8;
+  color:black;
+}
+#startBtn{
+  background:#22c55e;
+}
+.result{
+  text-align:center;
+  font-size:20px;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>📘 Quiz ม.6</h1>
+  <div id="startScreen">
+    <button id="startBtn">เริ่มทำแบบทดสอบ</button>
+  </div>
+
+  <div id="quizScreen" style="display:none;">
+    <div id="question"></div>
+    <div id="answers"></div>
+  </div>
+
+  <div id="resultScreen" style="display:none;">
+    <div class="result" id="finalScore"></div>
+    <button onclick="location.reload()">เล่นใหม่</button>
+  </div>
+</div>
+
+<script>
+const quiz = [
+{q:"1) โครงสร้างของของแข็งมีลักษณะอย่างไร?",
+a:["อนุภาคเรียงตัวเป็นระเบียบแน่น","เคลื่อนที่อิสระ","ไม่มีแรงยึดเหนี่ยว","ปริมาตรไม่แน่นอน"],c:0},
+{q:"2) ของเหลวมีสมบัติใด?",
+a:["รูปร่างคงที่","ปริมาตรคงที่แต่รูปร่างไม่คงที่","ไม่มีแรงยึดเหนี่ยว","อัดตัวได้มาก"],c:1},
+{q:"3) แรงยึดเหนี่ยวของของแข็งเมื่อเทียบกับของเหลว?",
+a:["น้อยกว่า","มากกว่า","เท่ากัน","ไม่มีเลย"],c:1},
+{q:"4) ทำไมของเหลวจึงไหลได้?",
+a:["ไม่มีแรงยึดเหนี่ยว","อนุภาคเคลื่อนที่ผ่านกันได้","รูปร่างคงที่","อัดตัวไม่ได้"],c:1},
+{q:"5) การแพร่เกิดได้เพราะ?",
+a:["อนุภาคอยู่กับที่","อนุภาคมีพลังงานจลน์","ไม่มีแรงยึดเหนี่ยว","ปริมาตรไม่คงที่"],c:1},
+{q:"6) ของแข็งผลึกมีลักษณะ?",
+a:["ไม่มีระเบียบ","ไม่มีจุดหลอมเหลวแน่นอน","มีจุดหลอมเหลวชัดเจน","ไหลได้"],c:2},
+{q:"7) ความหนืดเกี่ยวข้องกับ?",
+a:["แรงยึดเหนี่ยว","สี","รูปร่างภาชนะ","ปริมาตร"],c:0},
+{q:"8) เพิ่มอุณหภูมิของแข็งจะ?",
+a:["เคลื่อนที่เร็วขึ้น","หยุดนิ่ง","แน่นขึ้น","ไม่เปลี่ยน"],c:0},
+{q:"9) ของแข็งอสัณฐานมีลักษณะ?",
+a:["เรียงตัวเป็นระเบียบ","จุดหลอมเหลวแน่นอน","ไม่มีรูปแบบแน่นอน","ไหลเหมือนของเหลว"],c:2},
+{q:"10) ความแตกต่างหลักของของแข็งกับของเหลว?",
+a:["ของแข็งไม่มีแรงยึดเหนี่ยว","ของเหลวปริมาตรไม่แน่นอน","ของแข็งมีรูปร่างและปริมาตรคงที่","ของเหลวอัดตัวได้มาก"],c:2}
+];
+
+let current=0;
+let score=0;
+
+const startBtn=document.getElementById("startBtn");
+const startScreen=document.getElementById("startScreen");
+const quizScreen=document.getElementById("quizScreen");
+const resultScreen=document.getElementById("resultScreen");
+
+startBtn.onclick=()=>{
+  startScreen.style.display="none";
+  quizScreen.style.display="block";
+  loadQuestion();
+}
+
+function loadQuestion(){
+  const q=quiz[current];
+  document.getElementById("question").innerHTML="<h3>"+q.q+"</h3>";
+  const answersDiv=document.getElementById("answers");
+  answersDiv.innerHTML="";
+  q.a.forEach((ans,i)=>{
+    const btn=document.createElement("button");
+    btn.innerText=ans;
+    btn.onclick=()=>checkAnswer(i);
+    answersDiv.appendChild(btn);
+  });
+}
+
+function checkAnswer(i){
+  if(i===quiz[current].c) score++;
+  current++;
+  if(current<quiz.length){
+    loadQuestion();
+  }else{
+    quizScreen.style.display="none";
+    resultScreen.style.display="block";
+    document.getElementById("finalScore").innerHTML=
+      "คะแนนของคุณ: "+score+" / "+quiz.length;
+  }
+}
+</script>
+
+</body>
+</html>
