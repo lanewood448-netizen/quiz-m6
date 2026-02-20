@@ -1,32 +1,76 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ระบบข้อสอบ</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry Quiz: Solids & Liquids</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </div>
+        </label>
+    </div>
 
-<div id="student-form" class="card">
-  <h2>ข้อมูลผู้เข้าสอบ</h2>
+    <div class="container">
+        <section id="auth-section" class="card">
+            <h1><i class="fas fa-flask"></i> แบบทดสอบเคมี</h1>
+            <p>เรื่อง ของแข็งและของเหลว</p>
+            <form id="login-form">
+                <div class="input-group">
+                    <input type="text" id="fname" placeholder="ชื่อ" required>
+                    <input type="text" id="lname" placeholder="นามสกุล" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="grade" placeholder="ชั้น (เช่น ม.4/1)" required>
+                    <input type="number" id="no" placeholder="เลขที่" required>
+                </div>
+                <button type="submit" class="btn-primary">เริ่มทำข้อสอบ</button>
+            </form>
+        </section>
 
-  <input type="text" id="firstName" placeholder="ชื่อ">
-  <input type="text" id="lastName" placeholder="นามสกุล">
-  <input type="text" id="classRoom" placeholder="ชั้น">
-  <input type="number" id="number" placeholder="เลขที่">
+        <section id="quiz-section" class="card hidden">
+            <div class="quiz-header">
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="quiz-info">
+                    <span id="question-number">ข้อที่ 1/10</span>
+                    <span id="timer"><i class="fas fa-clock"></i> 10:00</span>
+                </div>
+            </div>
 
-  <button onclick="startQuiz()">เริ่มทำข้อสอบ</button>
-</div>
+            <div id="question-container">
+                <h2 id="question-text">คำถามจะปรากฏที่นี่</h2>
+                <div id="options-container" class="options-grid">
+                    </div>
+            </div>
 
-<div id="quiz-container" style="display:none;">
-  <div class="card">
-    <h2 id="question"></h2>
-    <div id="choices"></div>
-    <button onclick="nextQuestion()">ถัดไป</button>
-  </div>
-</div>
+            <div class="quiz-footer">
+                <button id="prev-btn" class="btn-secondary" disabled>ย้อนกลับ</button>
+                <button id="next-btn" class="btn-primary">ถัดไป</button>
+                <button id="submit-btn" class="btn-success hidden">ส่งข้อสอบ</button>
+            </div>
+        </section>
 
-<script src="script.js"></script>
+        <section id="result-section" class="card hidden">
+            <h2><i class="fas fa-poll-h"></i> สรุปผลคะแนน</h2>
+            <div id="user-summary"></div>
+            <div class="score-display">
+                <span id="final-score">0</span> / <span id="total-score">10</span>
+            </div>
+            <div id="analysis-container">
+                </div>
+            <button onclick="location.reload()" class="btn-primary">ทำใหม่อีกครั้ง</button>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
