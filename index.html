@@ -2,143 +2,164 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz ม.6 ของแข็งและของเหลว</title>
+<title>แบบทดสอบ ของแข็งและของเหลว</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-body{
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#0f172a,#1e293b);
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  margin:0;
+body {
+  margin: 0;
+  font-family: 'Kanit', sans-serif;
+  background: linear-gradient(135deg, #4facfe, #8e44ad);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
-.container{
-  background:#111827;
-  padding:30px;
-  border-radius:15px;
-  width:90%;
-  max-width:600px;
-  box-shadow:0 0 20px rgba(0,0,0,0.5);
+
+.container {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  width: 500px;
 }
-h1{
-  text-align:center;
-  color:#38bdf8;
+
+button {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  background: #00c6ff;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
 }
-button{
-  width:100%;
-  padding:10px;
-  margin:8px 0;
-  border:none;
-  border-radius:8px;
-  background:#1f2937;
-  color:white;
-  cursor:pointer;
-  transition:0.2s;
+
+button:hover {
+  background: #6a11cb;
+  transform: scale(1.05);
 }
-button:hover{
-  background:#38bdf8;
-  color:black;
-}
-#startBtn{
-  background:#22c55e;
-}
-.result{
-  text-align:center;
-  font-size:20px;
-  margin-top:20px;
+
+#result {
+  margin-top: 15px;
+  font-size: 14px;
 }
 </style>
 </head>
-
 <body>
 
 <div class="container">
-  <h1>📘 Quiz ม.6</h1>
-  <div id="startScreen">
-    <button id="startBtn">เริ่มทำแบบทดสอบ</button>
-  </div>
-
-  <div id="quizScreen" style="display:none;">
-    <div id="question"></div>
-    <div id="answers"></div>
-  </div>
-
-  <div id="resultScreen" style="display:none;">
-    <div class="result" id="finalScore"></div>
-    <button onclick="location.reload()">เล่นใหม่</button>
-  </div>
+  <h2 id="question"></h2>
+  <div id="choices"></div>
+  <div id="result"></div>
 </div>
 
 <script>
 const quiz = [
-{q:"1) โครงสร้างของของแข็งมีลักษณะอย่างไร?",
-a:["อนุภาคเรียงตัวเป็นระเบียบแน่น","เคลื่อนที่อิสระ","ไม่มีแรงยึดเหนี่ยว","ปริมาตรไม่แน่นอน"],c:0},
-{q:"2) ของเหลวมีสมบัติใด?",
-a:["รูปร่างคงที่","ปริมาตรคงที่แต่รูปร่างไม่คงที่","ไม่มีแรงยึดเหนี่ยว","อัดตัวได้มาก"],c:1},
-{q:"3) แรงยึดเหนี่ยวของของแข็งเมื่อเทียบกับของเหลว?",
-a:["น้อยกว่า","มากกว่า","เท่ากัน","ไม่มีเลย"],c:1},
-{q:"4) ทำไมของเหลวจึงไหลได้?",
-a:["ไม่มีแรงยึดเหนี่ยว","อนุภาคเคลื่อนที่ผ่านกันได้","รูปร่างคงที่","อัดตัวไม่ได้"],c:1},
-{q:"5) การแพร่เกิดได้เพราะ?",
-a:["อนุภาคอยู่กับที่","อนุภาคมีพลังงานจลน์","ไม่มีแรงยึดเหนี่ยว","ปริมาตรไม่คงที่"],c:1},
-{q:"6) ของแข็งผลึกมีลักษณะ?",
-a:["ไม่มีระเบียบ","ไม่มีจุดหลอมเหลวแน่นอน","มีจุดหลอมเหลวชัดเจน","ไหลได้"],c:2},
-{q:"7) ความหนืดเกี่ยวข้องกับ?",
-a:["แรงยึดเหนี่ยว","สี","รูปร่างภาชนะ","ปริมาตร"],c:0},
-{q:"8) เพิ่มอุณหภูมิของแข็งจะ?",
-a:["เคลื่อนที่เร็วขึ้น","หยุดนิ่ง","แน่นขึ้น","ไม่เปลี่ยน"],c:0},
-{q:"9) ของแข็งอสัณฐานมีลักษณะ?",
-a:["เรียงตัวเป็นระเบียบ","จุดหลอมเหลวแน่นอน","ไม่มีรูปแบบแน่นอน","ไหลเหมือนของเหลว"],c:2},
-{q:"10) ความแตกต่างหลักของของแข็งกับของเหลว?",
-a:["ของแข็งไม่มีแรงยึดเหนี่ยว","ของเหลวปริมาตรไม่แน่นอน","ของแข็งมีรูปร่างและปริมาตรคงที่","ของเหลวอัดตัวได้มาก"],c:2}
+{
+  q: "1) ของแข็งมีลักษณะใด",
+  choices: ["รูปร่างคงที่ ปริมาตรคงที่", "รูปร่างไม่คงที่ ปริมาตรคงที่", "รูปร่างและปริมาตรไม่คงที่"],
+  answer: 0,
+  explanation: "ของแข็งมีแรงยึดเหนี่ยวระหว่างอนุภาคสูง ทำให้รูปร่างและปริมาตรคงที่"
+},
+{
+  q: "2) ของเหลวมีลักษณะใด",
+  choices: ["รูปร่างคงที่", "ปริมาตรคงที่แต่รูปร่างเปลี่ยนตามภาชนะ", "ไม่มีปริมาตรแน่นอน"],
+  answer: 1,
+  explanation: "ของเหลวมีปริมาตรคงที่ แต่รูปร่างเปลี่ยนตามภาชนะ"
+},
+{
+  q: "3) แรงยึดเหนี่ยวระหว่างอนุภาคของของแข็งเป็นอย่างไร",
+  choices: ["ต่ำมาก", "ปานกลาง", "สูงมาก"],
+  answer: 2,
+  explanation: "ของแข็งมีแรงยึดเหนี่ยวสูง ทำให้อณูเคลื่อนที่ได้น้อย"
+},
+{
+  q: "4) ปรากฏการณ์ความตึงผิวพบในสถานะใด",
+  choices: ["ของแข็ง", "ของเหลว", "แก๊ส"],
+  answer: 1,
+  explanation: "ความตึงผิวเกิดจากแรงยึดเหนี่ยวของอนุภาคของเหลว"
+},
+{
+  q: "5) ของเหลวสามารถไหลได้เพราะอะไร",
+  choices: ["อนุภาคยึดติดแน่น", "อนุภาคเคลื่อนที่ผ่านกันได้", "ไม่มีแรงยึดเหนี่ยว"],
+  answer: 1,
+  explanation: "อนุภาคของเหลวเคลื่อนที่ผ่านกันได้ ทำให้ไหลได้"
+},
+{
+  q: "6) ความหนาแน่นคืออะไร",
+  choices: ["มวลต่อปริมาตร", "ปริมาตรต่อมวล", "แรงต่อพื้นที่"],
+  answer: 0,
+  explanation: "ความหนาแน่น = มวล / ปริมาตร"
+},
+{
+  q: "7) น้ำแข็งลอยน้ำเพราะอะไร",
+  choices: ["หนักกว่า", "ความหนาแน่นน้อยกว่า", "ไม่มีมวล"],
+  answer: 1,
+  explanation: "น้ำแข็งมีความหนาแน่นน้อยกว่าน้ำ จึงลอยได้"
+},
+{
+  q: "8) การหลอมเหลวคืออะไร",
+  choices: ["ของแข็งกลายเป็นของเหลว", "ของเหลวกลายเป็นแก๊ส", "แก๊สกลายเป็นของแข็ง"],
+  answer: 0,
+  explanation: "การหลอมเหลวคือการเปลี่ยนสถานะจากของแข็งเป็นของเหลว"
+},
+{
+  q: "9) ของแข็งผลึกมีลักษณะอย่างไร",
+  choices: ["อนุภาคเรียงตัวเป็นระเบียบ", "ไม่เป็นระเบียบ", "ไม่มีโครงสร้าง"],
+  answer: 0,
+  explanation: "ของแข็งผลึกมีโครงสร้างเรียงตัวเป็นระเบียบ"
+},
+{
+  q: "10) ความดันของของเหลวขึ้นกับอะไร",
+  choices: ["ความลึก", "สีของของเหลว", "อุณหภูมิห้อง"],
+  answer: 0,
+  explanation: "ความดันของของเหลวเพิ่มตามความลึก"
+}
 ];
 
-let current=0;
-let score=0;
+let current = 0;
 
-const startBtn=document.getElementById("startBtn");
-const startScreen=document.getElementById("startScreen");
-const quizScreen=document.getElementById("quizScreen");
-const resultScreen=document.getElementById("resultScreen");
-
-startBtn.onclick=()=>{
-  startScreen.style.display="none";
-  quizScreen.style.display="block";
-  loadQuestion();
-}
-
-function loadQuestion(){
-  const q=quiz[current];
-  document.getElementById("question").innerHTML="<h3>"+q.q+"</h3>";
-  const answersDiv=document.getElementById("answers");
-  answersDiv.innerHTML="";
-  q.a.forEach((ans,i)=>{
-    const btn=document.createElement("button");
-    btn.innerText=ans;
-    btn.onclick=()=>checkAnswer(i);
-    answersDiv.appendChild(btn);
+function loadQuestion() {
+  document.getElementById("result").innerHTML = "";
+  const q = quiz[current];
+  document.getElementById("question").innerText = q.q;
+  const choicesDiv = document.getElementById("choices");
+  choicesDiv.innerHTML = "";
+  
+  q.choices.forEach((choice, index) => {
+    const btn = document.createElement("button");
+    btn.innerText = choice;
+    btn.onclick = () => checkAnswer(index);
+    choicesDiv.appendChild(btn);
   });
 }
 
-function checkAnswer(i){
-  if(i===quiz[current].c) score++;
+function checkAnswer(index) {
+  const result = document.getElementById("result");
+  if(index === quiz[current].answer){
+    result.innerHTML = "✅ ถูกต้อง<br>" + quiz[current].explanation;
+  } else {
+    result.innerHTML = "❌ ผิด<br>" + quiz[current].explanation;
+  }
+
   current++;
-  if(current<quiz.length){
-    loadQuestion();
-  }else{
-    quizScreen.style.display="none";
-    resultScreen.style.display="block";
-    document.getElementById("finalScore").innerHTML=
-      "คะแนนของคุณ: "+score+" / "+quiz.length;
+  if(current < quiz.length){
+    setTimeout(loadQuestion, 2500);
+  } else {
+    setTimeout(() => {
+      document.querySelector(".container").innerHTML = "<h2>จบแบบทดสอบแล้ว 🎉</h2>";
+    }, 2500);
   }
 }
+
+loadQuestion();
 </script>
 
 </body>
-
 </html>
-<link rel="stylesheet" href="style.css">
