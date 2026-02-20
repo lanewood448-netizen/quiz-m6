@@ -1,128 +1,102 @@
 :root {
-    --primary: #4a90e2;
-    --secondary: #6c757d;
-    --success: #28a745;
-    --danger: #dc3545;
-    --bg: #f4f7f6;
-    --card-bg: #ffffff;
-    --text: #333;
-    --border: #ddd;
+    --primary-grad: linear-gradient(135deg, #ff0080, #7928ca);
+    --glass: rgba(255, 255, 255, 0.7);
+    --text-main: #1d1d1f;
+    --bg-color: #f0f2f5;
+    --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
 }
 
 [data-theme="dark"] {
-    --bg: #1a1a1a;
-    --card-bg: #2d2d2d;
-    --text: #f0f0f0;
-    --border: #444;
+    --glass: rgba(30, 30, 30, 0.8);
+    --text-main: #ffffff;
+    --bg-color: #0f0f0f;
 }
 
-* { box-sizing: border-box; transition: 0.3s; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Kanit', sans-serif; }
 
 body {
-    font-family: 'Sarabun', sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    overflow-x: hidden;
     min-height: 100vh;
 }
 
-.container { width: 90%; max-width: 800px; padding: 20px; }
-
-.card {
-    background: var(--card-bg);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    text-align: center;
+/* Background Blobs (Douyin Style) */
+.background-blobs {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
 }
+.blob {
+    position: absolute; width: 300px; height: 300px; 
+    background: var(--primary-grad); filter: blur(80px); opacity: 0.3; border-radius: 50%;
+}
+.blob:nth-child(1) { top: -50px; right: -50px; }
+.blob:nth-child(2) { bottom: -50px; left: -50px; background: #007aff; }
 
-.hidden { display: none; }
+/* Navigation */
+.top-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 5%; height: 70px;
+}
+.logo { font-weight: 800; font-size: 1.5rem; letter-spacing: 1px; }
+.logo span { color: #ff0080; }
 
-/* Input & Form */
-.input-group { display: flex; gap: 10px; margin-bottom: 15px; }
+/* Glass Cards */
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 24px;
+    padding: 40px 30px;
+    box-shadow: var(--card-shadow);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    max-width: 450px; margin: 20px auto;
+    animation: slideUp 0.5s ease;
+}
+.glass-card.active { display: flex; }
+
+/* Form & Inputs */
+.modern-form { width: 100%; margin-top: 25px; }
+.input-row { display: flex; gap: 10px; margin-bottom: 10px; }
 input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--card-bg);
-    color: var(--text);
+    width: 100%; padding: 15px; border-radius: 12px; border: none;
+    background: rgba(255,255,255,0.5); font-size: 1rem;
 }
-
-/* Quiz UI */
-.options-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin: 20px 0;
-}
-
-.option-btn {
-    padding: 15px;
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    cursor: pointer;
-    text-align: left;
-    background: none;
-    color: var(--text);
-    font-size: 16px;
-}
-
-.option-btn:hover { background: var(--primary); color: white; }
-.option-btn.selected { border-color: var(--primary); background: rgba(74, 144, 226, 0.1); }
-
-/* Progress & Timer */
-.progress-container {
-    background: #eee;
-    height: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    overflow: hidden;
-}
-.progress-bar {
-    height: 100%;
-    background: var(--primary);
-    width: 0%;
-}
-
-.quiz-info { display: flex; justify-content: space-between; font-weight: bold; }
 
 /* Buttons */
-button {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
+.btn-gradient {
+    width: 100%; padding: 16px; border: none; border-radius: 50px;
+    background: var(--primary-grad); color: white; font-weight: 600;
+    cursor: pointer; transform: scale(1); transition: 0.2s; margin-top: 10px;
 }
-.btn-primary { background: var(--primary); color: white; }
-.btn-secondary { background: var(--secondary); color: white; }
-.btn-success { background: var(--success); color: white; }
-button:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-gradient:active { transform: scale(0.95); }
 
-/* Theme Switch */
-.theme-switch-wrapper { position: fixed; top: 20px; right: 20px; }
-.theme-switch { position: relative; display: inline-block; width: 60px; height: 34px; }
-.theme-switch input { display: none; }
-.slider {
-    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #ccc; border-radius: 34px; display: flex; align-items: center; justify-content: space-around;
+/* Option Buttons */
+.option-btn {
+    width: 100%; padding: 18px; margin-bottom: 12px; border: none;
+    border-radius: 16px; background: rgba(255,255,255,0.8);
+    text-align: left; font-size: 1rem; cursor: pointer; transition: 0.3s;
 }
-input:checked + .slider { background-color: var(--primary); }
+.option-btn:hover { background: white; transform: translateX(5px); }
+.option-btn.selected { 
+    background: var(--primary-grad); color: white; box-shadow: 0 5px 15px rgba(255,0,128,0.3);
+}
 
-/* Review Section */
-.review-item {
-    text-align: left;
-    padding: 15px;
-    border-bottom: 1px solid var(--border);
-    margin-top: 10px;
-}
-.correct { color: var(--success); }
-.wrong { color: var(--danger); }
+/* Quiz Logic UI */
+.progress-wrapper { width: 100%; height: 6px; background: #ddd; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--primary-grad); width: 0%; transition: 0.4s; }
+.nav-controls { display: flex; width: 100%; justify-content: space-between; margin-top: 20px; }
+.nav-btn { background: none; border: none; color: var(--text-main); font-size: 1.5rem; cursor: pointer; }
+.hidden { display: none; }
 
-@media (max-width: 600px) {
-    .input-group { flex-direction: column; }
+/* Animations */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
+
+/* Analysis Scroll */
+.analysis-scroll { max-height: 300px; overflow-y: auto; width: 100%; margin: 20px 0; padding-right: 5px; }
+.review-card { background: rgba(255,255,255,0.4); padding: 15px; border-radius: 12px; margin-bottom: 10px; text-align: left; }
