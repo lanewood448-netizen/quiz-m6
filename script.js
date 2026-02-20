@@ -1,187 +1,247 @@
-// ข้อมูลข้อสอบ (เพิ่มคำอธิบายที่ชัดเจนขึ้น)
-const quizData = [
+// ข้อมูลคำถามเคมี 10 ข้อ
+const rawQuestions = [
     {
-        q: "สารในข้อใดมีแรงยึดเหนี่ยวระหว่างอนุภาคสูงสุด?",
-        options: ["ก๊าซออกซิเจน", "น้ำแข็งแห้ง", "เหล็ก", "น้ำ"],
-        correct: 2,
-        info: "เหล็กเป็นของแข็งประเภทผลึกโลหะ มีแรงยึดเหนี่ยวสูงกว่าสถานะอื่นมาก"
+        q: "สมบัติทั่วไปของของเหลวคือข้อใด?",
+        options: ["รูปร่างเปลี่ยนตามภาชนะ ปริมาตรคงที่", "รูปร่างคงที่ ปริมาตรเปลี่ยนตามภาชนะ", "รูปร่างและปริมาตรคงที่", "รูปร่างและปริมาตรเปลี่ยนตามภาชนะ"],
+        ansIndex: 0,
+        exp: "ของเหลวมีแรงยึดเหนี่ยวระหว่างอนุภาคน้อยกว่าของแข็ง ทำให้โมเลกุลเคลื่อนที่ได้ รูปร่างจึงเปลี่ยนตามภาชนะ แต่ยังมีแรงพอให้ปริมาตรคงที่"
     },
     {
-        q: "ของแข็งที่มีการจัดเรียงอนุภาคไม่เป็นระเบียบเรียกว่าอะไร?",
-        options: ["ผลึกโมเลกุล", "ของแข็งอสัณฐาน", "ผลึกไอออนิก", "ผลึกโลหะ"],
-        correct: 1,
-        info: "เช่น แก้ว หรือ พลาสติก เรียกว่า Amorphous solid"
+        q: "ของแข็งประเภทใดที่มีการจัดเรียงอนุภาคอย่างเป็นระเบียบ?",
+        options: ["ของแข็งอสัณฐาน", "ของแข็งผลึก", "ของเหลวเย็นจัด", "พลาสติก"],
+        ansIndex: 1,
+        exp: "ของแข็งผลึก (Crystalline solid) มีการจัดเรียงอนุภาคอย่างเป็นระเบียบและมีรูปทรงเรขาคณิตที่แน่นอน"
     },
     {
-        q: "ของเหลวชนิดใดมี 'ความตึงผิว' สูงที่สุด?",
-        options: ["แอลกอฮอล์", "น้ำเปล่า", "ปรอท", "น้ำมันพืช"],
-        correct: 2,
-        info: "ปรอทมีแรงดึงดูดระหว่างอะตอมสูงมาก ทำให้มีแรงตึงผิวสูงกว่าของเหลวทั่วไป"
+        q: "ปัจจัยใดไม่มีผลต่อความดันไอของของเหลว?",
+        options: ["อุณหภูมิ", "ชนิดของของเหลว", "ปริมาตรของของเหลว", "แรงยึดเหนี่ยวระหว่างโมเลกุล"],
+        ansIndex: 2,
+        exp: "ปริมาตรของของเหลวหรือขนาดของภาชนะไม่มีผลต่อความดันไอ ปัจจัยหลักคืออุณหภูมิและชนิดของสาร"
     },
     {
-        q: "เมื่ออุณหภูมิเพิ่มขึ้น 'ความหนืด' ของของเหลวจะเป็นอย่างไร?",
-        options: ["เพิ่มขึ้น", "ลดลง", "คงที่", "เท่ากับศูนย์"],
-        correct: 1,
-        info: "อุณหภูมิสูงขึ้นช่วยลดแรงต้านการไหล ทำให้ความหนืดลดลง"
+        q: "แรงยึดเหนี่ยวระหว่างโมเลกุลในน้ำ (H2O) ส่วนใหญ่คือแรงใด?",
+        options: ["แรงลอนดอน", "แรงดึงดูดระหว่างขั้ว", "พันธะไฮโดรเจน", "พันธะไอออนิก"],
+        ansIndex: 2,
+        exp: "น้ำมีพันธะไฮโดรเจน ซึ่งเป็นแรงยึดเหนี่ยวระหว่างโมเลกุลที่แข็งแรงเป็นพิเศษ เกิดจาก H จับกับ O"
     },
     {
-        q: "การระเหยของของเหลวเกิดขึ้นได้ที่สภาวะใด?",
-        options: ["ที่จุดเดือดเท่านั้น", "ที่อุณหภูมิใดๆ", "เฉพาะในที่มืด", "เมื่อความดันสูงมาก"],
-        correct: 1,
-        info: "การระเหยเกิดได้ทุกอุณหภูมิที่มีโมเลกุลผิวหน้าชนะแรงยึดเหนี่ยว"
+        q: "เมื่ออุณหภูมิเพิ่มขึ้น ความหนืดของของเหลวจะเป็นอย่างไร?",
+        options: ["เพิ่มขึ้น", "ลดลง", "คงที่", "เพิ่มขึ้นแล้วลดลง"],
+        ansIndex: 1,
+        exp: "เมื่ออุณหภูมิสูงขึ้น พลังงานจลน์ของโมเลกุลจะเพิ่มขึ้น ทำให้เอาชนะแรงยึดเหนี่ยวได้ ความหนืดจึงลดลง (ไหลง่ายขึ้น)"
     },
     {
-        q: "ผลึกเพชรมีโครงสร้างแบบใด?",
-        options: ["ไอออนิก", "โครงร่างตาข่าย", "โมเลกุลยึดด้วยแรงแวนเดอร์วาลส์", "โลหะ"],
-        correct: 1,
-        info: "เพชรเป็นผลึกร่างตาข่ายที่แข็งแรงที่สุด"
+        q: "ปรากฏการณ์ที่ของเหลวสามารถซึมขึ้นไปในหลอดทดลองขนาดเล็กได้เรียกว่าอะไร?",
+        options: ["Surface tension", "Viscosity", "Capillary action", "Vapor pressure"],
+        ansIndex: 2,
+        exp: "Capillary action (การซึมตามรูเล็ก) เกิดจากความสมดุลระหว่างแรงเชื่อมแน่น (Cohesion) และแรงยึดติด (Adhesion)"
     },
     {
-        q: "ปรากฏการณ์ที่ของเหลวไหลขึ้นตามหลอดรูเล็กๆ คืออะไร?",
-        options: ["การแพร่", "Capillary Action", "ออสโมซิส", "การควบแน่น"],
-        correct: 1,
-        info: "เกิดจากแรง Adhesive และ Cohesive ทำงานร่วมกัน"
+        q: "ข้อใดคือลักษณะของของแข็งอสัณฐาน (Amorphous solid)?",
+        options: ["มีจุดหลอมเหลวที่แน่นอน", "อนุภาคจัดเรียงเป็นระเบียบ", "มีจุดหลอมเหลวไม่คงที่ช่วงกว้าง", "มีโครงสร้างผลึกที่ชัดเจน"],
+        ansIndex: 2,
+        exp: "ของแข็งอสัณฐานเรียงตัวไม่เป็นระเบียบ ทำให้แรงยึดเหนี่ยวแต่ละจุดไม่เท่ากัน จึงสลายตัวที่อุณหภูมิต่างกัน (จุดหลอมเหลวไม่คงที่)"
     },
     {
-        q: "ข้อใดไม่ใช่คุณสมบัติของของแข็ง?",
-        options: ["ปริมาตรคงที่", "รูปร่างคงที่", "ฟุ้งกระจายเต็มภาชนะ", "แรงยึดเหนี่ยวสูง"],
-        correct: 2,
-        info: "การฟุ้งกระจายเต็มภาชนะเป็นสมบัติของแก๊ส"
+        q: "การระเหย (Evaporation) เกิดขึ้นที่บริเวณใดของของเหลว?",
+        options: ["ทั่วทั้งภาชนะ", "ก้นภาชนะ", "เฉพาะบริเวณผิวหน้าของของเหลว", "ตรงกลางของเหลว"],
+        ansIndex: 2,
+        exp: "การระเหยเกิดขึ้นเฉพาะที่ผิวหน้าของของเหลวเท่านั้น ต่างจากการเดือดที่เกิดทั่วทั้งของเหลว"
     },
     {
-        q: "จุดเดือดของของเหลวจะเปลี่ยนไปอย่างไรเมื่อความดันบรรยากาศลดลง?",
-        options: ["จุดเดือดสูงขึ้น", "จุดเดือดต่ำลง", "จุดเดือดคงที่", "ไม่สามารถหาได้"],
-        correct: 1,
-        info: "ความดันต่ำลง ทำให้โมเลกุลกลายเป็นไอได้ง่ายขึ้น จุดเดือดจึงต่ำลง"
+        q: "อุณหภูมิที่ความดันไอของของเหลวเท่ากับความดันบรรยากาศ เรียกว่าอะไร?",
+        options: ["จุดหลอมเหลว", "จุดควบแน่น", "จุดเดือด", "จุดเยือกแข็ง"],
+        ansIndex: 2,
+        exp: "จุดเดือดคืออุณหภูมิที่ความดันไอของของเหลวมีค่าเท่ากับความดันบรรยากาศเหนือของเหลวนั้น"
     },
     {
-        q: "เกลือแกง (NaCl) จัดเป็นของแข็งประเภทใด?",
-        options: ["ผลึกโลหะ", "ผลึกร่างตาข่าย", "ผลึกไอออนิก", "ผลึกโมเลกุล"],
-        correct: 2,
-        info: "NaCl เกิดจากแรงดึงดูดทางไฟฟ้าของประจุบวกและลบ จึงเป็นผลึกไอออนิก"
+        q: "ความตึงผิวของของเหลวเกิดจากอะไร?",
+        options: ["แรงผลักระหว่างโมเลกุล", "แรงดึงดูดระหว่างโมเลกุลที่ผิวหน้าดึงเข้าหากัน", "ความดันบรรยากาศกดทับ", "แรงโน้มถ่วงของโลก"],
+        ansIndex: 1,
+        exp: "โมเลกุลที่ผิวหน้าถูกดึงดูดจากโมเลกุลด้านข้างและด้านล่าง (ไม่มีด้านบน) ทำให้เกิดแรงดึงเข้าสู่ภายใน หรือความตึงผิว"
     }
 ];
 
-let currentIdx = 0;
-let userAnswers = new Array(quizData.length).fill(null);
-let shuffledData = [];
-let timer;
-let secondsLeft = 600;
+// ตัวแปรระบบ
+let questions = [];
+let currentQ = 0;
+let userAnswers = new Array(10).fill(null);
+let timeSpent = new Array(10).fill(0);
+let qStartTime = 0;
+let userInfo = {};
+let totalSeconds = 600; // 10 นาที
+let timerInterval;
 
-// Theme Toggle
-document.getElementById('theme-toggle').onclick = () => {
-    const body = document.body;
-    if (body.classList.contains('light-mode')) {
-        body.classList.replace('light-mode', 'dark-mode');
-        document.documentElement.setAttribute('data-theme', 'dark');
-        document.querySelector('#theme-toggle i').className = 'fas fa-sun';
-    } else {
-        body.classList.replace('dark-mode', 'light-mode');
-        document.documentElement.removeAttribute('data-theme');
-        document.querySelector('#theme-toggle i').className = 'fas fa-moon';
-    }
-};
-
-// Start Quiz
-document.getElementById('login-form').onsubmit = (e) => {
+// 1. จัดการ User Form
+document.getElementById('user-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    const info = {
-        name: `${document.getElementById('fname').value} ${document.getElementById('lname').value}`,
-        room: document.getElementById('grade').value,
-        no: document.getElementById('no').value
+    userInfo = {
+        fname: document.getElementById('fname').value,
+        lname: document.getElementById('lname').value,
+        studentClass: document.getElementById('student-class').value,
+        number: document.getElementById('student-number').value
     };
-    localStorage.setItem('student', JSON.stringify(info));
     
-    // Shuffle
-    shuffledData = [...quizData].sort(() => Math.random() - 0.5);
-    
-    switchSection('auth-section', 'quiz-section');
-    renderQuestion();
-    startTimer();
-};
+    // ตรวจสอบ Auto-save
+    const savedAns = localStorage.getItem('chinnabut_ans');
+    if(savedAns) userAnswers = JSON.parse(savedAns);
 
-function switchSection(from, to) {
-    document.getElementById(from).classList.remove('active');
-    setTimeout(() => {
-        document.getElementById(from).style.display = 'none';
-        document.getElementById(to).style.display = 'flex';
-        setTimeout(() => document.getElementById(to).classList.add('active'), 50);
-    }, 400);
+    prepareQuestions();
+    switchScreen('login-screen', 'quiz-screen');
+    startTimer();
+    loadQuestion();
+});
+
+// สลับหน้าจอ
+function switchScreen(hideId, showId) {
+    document.getElementById(hideId).classList.remove('active');
+    document.getElementById(showId).classList.add('active');
 }
 
-function renderQuestion() {
-    const data = shuffledData[currentIdx];
-    document.getElementById('q-count').innerText = `${currentIdx + 1} / ${shuffledData.length}`;
-    document.getElementById('question-text').innerText = data.q;
-    document.getElementById('progress-bar').style.width = `${((currentIdx + 1) / shuffledData.length) * 100}%`;
+// 2. เตรียมชุดคำถาม (Random ข้อและ Random ตัวเลือก)
+function prepareQuestions() {
+    let shuffledQ = [...rawQuestions].sort(() => Math.random() - 0.5);
+    questions = shuffledQ.map(q => {
+        let correctText = q.options[q.ansIndex];
+        let shuffledOpts = [...q.options].sort(() => Math.random() - 0.5);
+        let newAnsIndex = shuffledOpts.indexOf(correctText);
+        return { ...q, options: shuffledOpts, correctIndex: newAnsIndex };
+    });
+}
 
-    const optionsBox = document.getElementById('options-container');
-    optionsBox.innerHTML = '';
-
-    data.options.forEach((opt, i) => {
-        const btn = document.createElement('button');
-        btn.className = `option-btn ${userAnswers[currentIdx] === i ? 'selected' : ''}`;
-        btn.innerText = opt;
-        btn.onclick = () => {
-            userAnswers[currentIdx] = i;
-            renderQuestion();
-        };
-        optionsBox.appendChild(btn);
+// 3. โหลดคำถามปัจจุบัน
+function loadQuestion() {
+    qStartTime = Date.now();
+    
+    document.getElementById('question-tracker').innerText = `ข้อ ${currentQ + 1} / 10`;
+    document.getElementById('progress-bar').style.width = `${((currentQ) / 10) * 100}%`;
+    document.getElementById('question-text').innerText = questions[currentQ].q;
+    
+    const optsContainer = document.getElementById('options-container');
+    optsContainer.innerHTML = '';
+    
+    questions[currentQ].options.forEach((opt, index) => {
+        const div = document.createElement('div');
+        div.className = `option ${userAnswers[currentQ] === index ? 'selected' : ''}`;
+        div.innerText = opt;
+        div.onclick = () => selectOption(index);
+        optsContainer.appendChild(div);
     });
 
-    document.getElementById('prev-btn').style.visibility = currentIdx === 0 ? 'hidden' : 'visible';
-    if (currentIdx === shuffledData.length - 1) {
-        document.getElementById('next-btn').classList.add('hidden');
-        document.getElementById('submit-btn').classList.remove('hidden');
+    // อัปเดตปุ่ม
+    document.getElementById('btn-prev').disabled = currentQ === 0;
+    
+    if (currentQ === 9) {
+        document.getElementById('btn-next').classList.add('hidden');
+        document.getElementById('btn-summary').classList.remove('hidden');
     } else {
-        document.getElementById('next-btn').classList.remove('hidden');
-        document.getElementById('submit-btn').classList.add('hidden');
+        document.getElementById('btn-next').classList.remove('hidden');
+        document.getElementById('btn-summary').classList.add('hidden');
     }
 }
 
-document.getElementById('next-btn').onclick = () => { currentIdx++; renderQuestion(); };
-document.getElementById('prev-btn').onclick = () => { currentIdx--; renderQuestion(); };
+// เลือกคำตอบ
+function selectOption(index) {
+    userAnswers[currentQ] = index;
+    localStorage.setItem('chinnabut_ans', JSON.stringify(userAnswers));
+    loadQuestion(); // re-render options
+}
 
+// เปลี่ยนข้อ
+function nextQuestion() {
+    saveTimeSpent();
+    if (currentQ < 9) { currentQ++; loadQuestion(); }
+}
+function prevQuestion() {
+    saveTimeSpent();
+    if (currentQ > 0) { currentQ--; loadQuestion(); }
+}
+
+function saveTimeSpent() {
+    timeSpent[currentQ] += (Date.now() - qStartTime) / 1000;
+}
+
+// 4. ระบบเวลา
 function startTimer() {
-    timer = setInterval(() => {
-        secondsLeft--;
-        let m = Math.floor(secondsLeft / 60);
-        let s = secondsLeft % 60;
-        document.getElementById('timer').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-        if (secondsLeft <= 0) finish();
+    timerInterval = setInterval(() => {
+        totalSeconds--;
+        let m = Math.floor(totalSeconds / 60);
+        let s = totalSeconds % 60;
+        let timeString = `${m}:${s < 10 ? '0' : ''}${s}`;
+        
+        let timerBadge = document.getElementById('timer');
+        timerBadge.innerText = `⏱️ ${timeString}`;
+        
+        if (totalSeconds <= 60) timerBadge.classList.add('danger');
+        
+        if (totalSeconds <= 0) {
+            clearInterval(timerInterval);
+            submitQuiz(); // หมดเวลาส่งอัตโนมัติ
+        }
     }, 1000);
 }
 
-document.getElementById('submit-btn').onclick = () => {
-    if (userAnswers.includes(null)) {
-        if (!confirm('คุณยังทำไม่ครบทุกข้อ ยืนยันจะส่งหรือไม่?')) return;
+// 5. หน้าสรุป
+function showSummary() {
+    saveTimeSpent();
+    switchScreen('quiz-screen', 'summary-screen');
+    const list = document.getElementById('summary-list');
+    list.innerHTML = '';
+    
+    questions.forEach((q, i) => {
+        let status = userAnswers[i] !== null ? '✅ ตอบแล้ว' : '❌ <span style="color:red">ยังไม่ได้ตอบ</span>';
+        list.innerHTML += `<div class="summary-item"><span>ข้อ ${i + 1}</span> <span>${status}</span></div>`;
+    });
+}
+function backToQuiz() {
+    switchScreen('summary-screen', 'quiz-screen');
+    loadQuestion();
+}
+
+// 6. ตรวจคำตอบและแสดงผล
+function submitQuiz() {
+    clearInterval(timerInterval);
+    localStorage.removeItem('chinnabut_ans');
+    switchScreen('summary-screen', 'result-screen');
+    // กรณีหมดเวลาขณะอยู่หน้าควิซ
+    if(document.getElementById('quiz-screen').classList.contains('active')) {
+        switchScreen('quiz-screen', 'result-screen');
     }
-    finish();
-};
 
-function finish() {
-    clearInterval(timer);
     let score = 0;
-    const analysis = document.getElementById('analysis-list');
-    analysis.innerHTML = '';
+    let expHtml = '';
 
-    shuffledData.forEach((q, i) => {
-        const isCorrect = userAnswers[i] === q.correct;
-        if (isCorrect) score++;
-        
-        analysis.innerHTML += `
-            <div class="review-card" style="border-left: 5px solid ${isCorrect ? '#28a745' : '#dc3545'}">
-                <p><strong>ข้อที่ ${i+1}:</strong> ${q.q}</p>
-                <p style="color: ${isCorrect ? '#28a745' : '#dc3545'}">
-                    ${isCorrect ? 'ถูกต้อง' : 'ผิด (เฉลย: ' + q.options[q.correct] + ')'}
-                </p>
-                <p style="font-size: 0.8rem; opacity: 0.8;">💡 ${q.info}</p>
-            </div>
-        `;
+    questions.forEach((q, i) => {
+        if (userAnswers[i] === q.correctIndex) {
+            score++;
+        } else {
+            let userAnsText = userAnswers[i] !== null ? q.options[userAnswers[i]] : "ไม่ได้ตอบ";
+            expHtml += `
+                <div class="exp-card">
+                    <b>ข้อ ${i + 1}: ${q.q}</b><br>
+                    <span style="color:red">คำตอบคุณ: ${userAnsText}</span><br>
+                    <span style="color:green">เฉลย: ${q.options[q.correctIndex]}</span><br>
+                    <small><i>อธิบาย: ${q.exp}</i></small>
+                </div>
+            `;
+        }
     });
 
-    const std = JSON.parse(localStorage.getItem('student'));
-    document.getElementById('user-info-display').innerHTML = `<p>${std.name} | ห้อง ${std.room} เลขที่ ${std.no}</p>`;
     document.getElementById('final-score').innerText = score;
-    switchSection('quiz-section', 'result-section');
+    document.getElementById('user-info-display').innerHTML = `
+        <h3>ข้อมูลผู้สอบ</h3>
+        <p>คุณ ${userInfo.fname} ${userInfo.lname} <br> ชั้น: ${userInfo.studentClass} เลขที่: ${userInfo.number}</p>
+        <p>ใช้เวลาไปทั้งหมด: ${Math.floor((600 - totalSeconds)/60)} นาที ${(600 - totalSeconds)%60} วินาที</p>
+    `;
+    document.getElementById('explanations-container').innerHTML = expHtml;
+}
+
+// 7. Dark Mode Toggle
+function toggleTheme() {
+    const body = document.body;
+    if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+    } else {
+        body.setAttribute('data-theme', 'dark');
+    }
 }
