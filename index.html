@@ -3,77 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chem Quiz Pro | Solids & Liquids</title>
+    <title>Chinnabut 💖 Chemistry Quiz</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="light-mode">
-    <div class="background-blobs">
-        <div class="blob"></div>
-        <div class="blob"></div>
-    </div>
+<body>
+    <div class="theme-toggle" onclick="toggleTheme()">🌙/☀️</div>
 
-    <nav class="top-nav">
-        <div class="logo">CHINNABUT<span>PRO</span></div>
-        <button id="theme-toggle" class="circle-btn"><i class="fas fa-moon"></i></button>
-    </nav>
-
-    <main class="app-container">
-        <section id="auth-section" class="glass-card active">
-            <div class="icon-header">🧪</div>
-            <h1>แบบทดสอบเคมี</h1>
-            <p class="subtitle">เรื่อง ของแข็งและของเหลว</p>
-            
-            <form id="login-form" class="modern-form">
-                <div class="input-row">
+    <div class="container">
+        <div id="login-screen" class="screen active">
+            <h1 class="logo glow-text">✨ Chinnabut ✨</h1>
+            <p class="subtitle">แบบทดสอบเคมี: ของแข็ง & ของเหลว</p>
+            <form id="user-form">
+                <div class="input-group">
                     <input type="text" id="fname" placeholder="ชื่อ" required>
                     <input type="text" id="lname" placeholder="นามสกุล" required>
                 </div>
-                <div class="input-row">
-                    <input type="text" id="grade" placeholder="ชั้น" required>
-                    <input type="number" id="no" placeholder="เลขที่" required>
+                <div class="input-group">
+                    <input type="text" id="student-class" placeholder="ชั้นเรียน (เช่น ม.4/1)" required>
+                    <input type="number" id="student-number" placeholder="เลขที่" required>
                 </div>
-                <button type="submit" class="btn-gradient">เริ่มทำข้อสอบ <i class="fas fa-arrow-right"></i></button>
+                <button type="submit" class="btn btn-primary bounce">เริ่มทำข้อสอบเลย! 🚀</button>
             </form>
-        </section>
+        </div>
 
-        <section id="quiz-section" class="glass-card">
-            <div class="quiz-status">
-                <div class="timer-badge" id="timer">10:00</div>
-                <div class="progress-info">
-                    <span id="q-count">1/10</span>
-                </div>
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <span id="question-tracker" class="badge">ข้อ 1 / 10</span>
+                <span id="timer" class="badge timer-badge">⏱️ 10:00</span>
             </div>
-            <div class="progress-wrapper">
-                <div class="progress-fill" id="progress-bar"></div>
+            
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
             </div>
 
-            <div class="question-box">
-                <h2 id="question-text">Loading...</h2>
-                <div id="options-container" class="options-list">
+            <div class="question-container box-shadow">
+                <h2 id="question-text">คำถามจะแสดงที่นี่?</h2>
+                <div id="options-container" class="options">
                     </div>
             </div>
 
-            <div class="nav-controls">
-                <button id="prev-btn" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
-                <button id="next-btn" class="nav-btn">ถัดไป <i class="fas fa-chevron-right"></i></button>
-                <button id="submit-btn" class="btn-gradient hidden">ส่งข้อสอบ</button>
+            <div class="nav-buttons">
+                <button id="btn-prev" class="btn btn-secondary" onclick="prevQuestion()" disabled>◀ ย้อนกลับ</button>
+                <button id="btn-next" class="btn btn-primary" onclick="nextQuestion()">ถัดไป ▶</button>
+                <button id="btn-summary" class="btn btn-warning hidden" onclick="showSummary()">ดูสรุป 📝</button>
             </div>
-        </section>
+        </div>
 
-        <section id="result-section" class="glass-card">
-            <div class="success-icon">🏆</div>
-            <h2>ยินดีด้วย!</h2>
-            <div id="user-info-display"></div>
-            <div class="score-circle">
-                <span id="final-score">0</span>
-                <small>/ 10</small>
+        <div id="summary-screen" class="screen">
+            <h2 class="glow-text">สรุปการทำข้อสอบ 📋</h2>
+            <div id="summary-list" class="summary-list"></div>
+            <div class="nav-buttons" style="justify-content: center; gap: 15px;">
+                <button class="btn btn-secondary" onclick="backToQuiz()">กลับไปแก้</button>
+                <button class="btn btn-danger bounce" onclick="submitQuiz()">ส่งข้อสอบจริง! ✅</button>
             </div>
-            <div id="analysis-list" class="analysis-scroll"></div>
-            <button onclick="location.reload()" class="btn-gradient">ทำใหม่อีกครั้ง</button>
-        </section>
-    </main>
+        </div>
+
+        <div id="result-screen" class="screen">
+            <h1 class="glow-text">🎉 สรุปผลคะแนน 🎉</h1>
+            <div id="user-info-display" class="user-info-card box-shadow"></div>
+            <div class="score-display">
+                <span id="final-score">0</span> / 10
+            </div>
+            <div id="explanations-container" class="explanations">
+                </div>
+            <button class="btn btn-primary bounce mt-2" onclick="location.reload()">ทำใหม่อีกครั้ง 🔁</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
