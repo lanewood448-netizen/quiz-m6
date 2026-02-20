@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;800&display=swap');
+
+:root {
+    --primary-yellow: #ffcc00;
+    --dark-bg: #121212;
+    --card-bg: rgba(30, 30, 30, 0.9);
+    --text-light: #ffffff;
+    --accent: #f39c12;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Sarabun', sans-serif;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* ปิดการ Scroll ปกติ */
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+}
+
+.honeycomb-bg {
+    background-image: radial-gradient(circle at 50% 50%, rgba(255, 204, 0, 0.05) 0%, transparent 60%),
+                      url('https://www.transparenttextures.com/patterns/honeycomb.png');
+}
+
+/* App Container & Views */
+#app-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.view {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s;
+    z-index: 10;
+}
+
+.view.hidden {
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Top UI (Progress & Timer) */
+#top-ui {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    z-index: 100;
+    padding: 10px 20px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+}
+
+.progress-bar-container {
+    width: 100%; height: 6px;
+    background: #333; border-radius: 3px;
+    overflow: hidden; margin-bottom: 8px;
+}
+
+#progress-bar {
+    height: 100%; width: 0%;
+    background: var(--primary-yellow);
+    transition: width 0.3s ease;
+}
+
+.top-info {
+    display: flex; justify-content: space-between;
+    font-weight: 600; font-size: 14px;
+    text-shadow: 1px 1px 2px black;
+}
+
+/* Forms & Cards */
+.form-card, .result-card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px solid var(--primary-yellow);
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
+    width: 90%; max-width: 400px;
+    text-align: center;
+}
+
+input {
+    width: 100%; padding: 15px; margin-bottom: 15px;
+    background: #2a2a2a; border: 1px solid #444;
+    color: white; border-radius: 10px; font-size: 16px;
+}
+
+input:focus { outline: none; border-color: var(--primary-yellow); }
+
+.btn-primary {
+    width: 100%; padding: 15px;
+    background: var(--primary-yellow); color: black;
+    border: none; border-radius: 10px;
+    font-size: 18px; font-weight: bold; cursor: pointer;
+}
+
+/* Quiz Track (Douyin Slide Mechanism) */
+#view-quiz {
+    align-items: flex-start;
+}
+
+#quiz-track {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* เอฟเฟกต์เลื่อนแบบนุ่มนวล */
+}
+
+.slide {
+    width: 100%; height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 20px;
+    padding-right: 70px; /* เว้นที่ให้ปุ่มด้านขวา */
+}
+
+.question-box {
+    background: rgba(20, 20, 20, 0.85);
+    padding: 25px; border-radius: 15px;
+    border-left: 5px solid var(--primary-yellow);
+    width: 100%; max-width: 500px;
+    margin-bottom: 20px;
+}
+
+.question-box h3 { font-size: 20px; line-height: 1.4; }
+
+.option-btn {
+    width: 100%; max-width: 500px;
+    background: #2a2a2a; border: 2px solid #444;
+    color: white; padding: 15px; margin-bottom: 12px;
+    border-radius: 10px; text-align: left;
+    font-size: 16px; cursor: pointer; transition: 0.2s;
+}
+
+.option-btn.selected {
+    background: rgba(255, 204, 0, 0.2);
+    border-color: var(--primary-yellow);
+    color: var(--primary-yellow);
+}
+
+/* Douyin Side Controls */
+.side-controls {
+    position: absolute;
+    right: 15px; bottom: 20vh;
+    display: flex; flex-direction: column; gap: 20px;
+    z-index: 50;
+}
+
+.action-btn {
+    width: 50px; height: 50px;
+    border-radius: 50%; border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white; font-size: 20px;
+    backdrop-filter: blur(5px);
+    display: flex; justify-content: center; align-items: center;
+    cursor: pointer; transition: 0.3s;
+}
+
+.action-btn:active { transform: scale(0.9); }
+.submit-btn { background: #27ae60; flex-direction: column; font-size: 14px; height: 60px; font-weight: bold;}
+
+/* Results */
+.score-display { font-size: 40px; color: var(--primary-yellow); font-weight: bold; margin: 15px 0; }
+.review-scroll { max-height: 40vh; overflow-y: auto; text-align: left; margin-bottom: 20px; padding-right: 10px; }
+.review-item { background: #222; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-size: 14px; border-left: 3px solid #555;}
+.review-item.correct { border-color: #2ecc71; }
+.review-item.wrong { border-color: #e74c3c; }
+.correct-text { color: #2ecc71; font-weight: bold; }

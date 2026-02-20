@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chemistry Quiz: Douyin Style</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="top-ui" class="hidden">
+        <div class="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+        <div class="top-info">
+            <span id="timer">⏱️ 10:00</span>
+            <span id="q-counter">1/10</span>
+        </div>
+    </div>
+
+    <div id="app-container">
+        
+        <section id="view-form" class="view active">
+            <div class="form-card honeycomb-bg">
+                <h1>🧪 เคมี: ของแข็ง & ของเหลว</h1>
+                <p>กรุณากรอกข้อมูลเพื่อเริ่มทำข้อสอบ</p>
+                <form id="user-form">
+                    <input type="text" id="fname" placeholder="ชื่อ" required>
+                    <input type="text" id="lname" placeholder="นามสกุล" required>
+                    <input type="text" id="class" placeholder="ชั้น (เช่น ม.5/1)" required>
+                    <input type="number" id="no" placeholder="เลขที่" required>
+                    <button type="submit" class="btn-primary pulse">เริ่มทำข้อสอบเลย!</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="view-quiz" class="view hidden">
+            <div id="quiz-track"></div>
+
+            <div class="side-controls">
+                <button id="btn-up" class="action-btn" title="ข้อก่อนหน้า">▲</button>
+                <button id="btn-down" class="action-btn" title="ข้อถัดไป">▼</button>
+                <button id="btn-submit" class="action-btn submit-btn hidden" title="ส่งข้อสอบ">✅<br>ส่ง</button>
+            </div>
+        </section>
+
+        <section id="view-result" class="view hidden">
+            <div class="result-card honeycomb-bg">
+                <h2>📊 สรุปผลคะแนน</h2>
+                <div id="user-summary"></div>
+                <div class="score-display">
+                    <span id="final-score">0</span> / 10
+                </div>
+                <div id="review-container" class="review-scroll"></div>
+                <button onclick="localStorage.removeItem('quiz_state'); location.reload()" class="btn-primary">เริ่มทำใหม่อีกครั้ง</button>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
