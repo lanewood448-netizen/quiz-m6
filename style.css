@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;800&display=swap');
 
 :root {
-    --primary-yellow: #ffcc00;
+    --primary-blue: #3da9fc;
     --dark-bg: #121212;
     --card-bg: rgba(30, 30, 30, 0.9);
     --text-light: #ffffff;
-    --accent: #f39c12;
+    --accent: #60c5ff;
 }
 
 * {
@@ -18,13 +18,13 @@
 body, html {
     width: 100%;
     height: 100%;
-    overflow: hidden; /* ปิดการ Scroll ปกติ */
+    overflow: hidden;
     background-color: var(--dark-bg);
     color: var(--text-light);
 }
 
 .honeycomb-bg {
-    background-image: radial-gradient(circle at 50% 50%, rgba(255, 204, 0, 0.05) 0%, transparent 60%),
+    background-image: radial-gradient(circle at 50% 50%, rgba(61, 169, 252, 0.05) 0%, transparent 60%),
                       url('https://www.transparenttextures.com/patterns/honeycomb.png');
 }
 
@@ -52,7 +52,7 @@ body, html {
     z-index: -1;
 }
 
-/* Top UI (Progress & Timer) */
+/* Top UI */
 #top-ui {
     position: fixed;
     top: 0; left: 0; width: 100%;
@@ -69,7 +69,7 @@ body, html {
 
 #progress-bar {
     height: 100%; width: 0%;
-    background: var(--primary-yellow);
+    background: var(--primary-blue);
     transition: width 0.3s ease;
 }
 
@@ -84,8 +84,8 @@ body, html {
     background: var(--card-bg);
     padding: 2rem;
     border-radius: 20px;
-    border: 2px solid var(--primary-yellow);
-    box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
+    border: 2px solid var(--primary-blue);
+    box-shadow: 0 0 20px rgba(61, 169, 252, 0.2);
     width: 90%; max-width: 400px;
     text-align: center;
 }
@@ -96,16 +96,16 @@ input {
     color: white; border-radius: 10px; font-size: 16px;
 }
 
-input:focus { outline: none; border-color: var(--primary-yellow); }
+input:focus { outline: none; border-color: var(--primary-blue); }
 
 .btn-primary {
     width: 100%; padding: 15px;
-    background: var(--primary-yellow); color: black;
+    background: var(--primary-blue); color: black;
     border: none; border-radius: 10px;
     font-size: 18px; font-weight: bold; cursor: pointer;
 }
 
-/* Quiz Track (Douyin Slide Mechanism) */
+/* Quiz Track */
 #view-quiz {
     align-items: flex-start;
 }
@@ -113,7 +113,7 @@ input:focus { outline: none; border-color: var(--primary-yellow); }
 #quiz-track {
     width: 100%;
     height: 100%;
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* เอฟเฟกต์เลื่อนแบบนุ่มนวล */
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .slide {
@@ -121,13 +121,13 @@ input:focus { outline: none; border-color: var(--primary-yellow); }
     display: flex; flex-direction: column;
     justify-content: center; align-items: center;
     padding: 20px;
-    padding-right: 70px; /* เว้นที่ให้ปุ่มด้านขวา */
+    padding-right: 70px;
 }
 
 .question-box {
     background: rgba(20, 20, 20, 0.85);
     padding: 25px; border-radius: 15px;
-    border-left: 5px solid var(--primary-yellow);
+    border-left: 5px solid var(--primary-blue);
     width: 100%; max-width: 500px;
     margin-bottom: 20px;
 }
@@ -143,12 +143,12 @@ input:focus { outline: none; border-color: var(--primary-yellow); }
 }
 
 .option-btn.selected {
-    background: rgba(255, 204, 0, 0.2);
-    border-color: var(--primary-yellow);
-    color: var(--primary-yellow);
+    background: rgba(61, 169, 252, 0.2);
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
 }
 
-/* Douyin Side Controls */
+/* Side Controls */
 .side-controls {
     position: absolute;
     right: 15px; bottom: 20vh;
@@ -167,12 +167,44 @@ input:focus { outline: none; border-color: var(--primary-yellow); }
 }
 
 .action-btn:active { transform: scale(0.9); }
-.submit-btn { background: #27ae60; flex-direction: column; font-size: 14px; height: 60px; font-weight: bold;}
+
+.submit-btn { 
+    background: #27ae60; 
+    flex-direction: column; 
+    font-size: 14px; 
+    height: 60px; 
+    font-weight: bold;
+}
 
 /* Results */
-.score-display { font-size: 40px; color: var(--primary-yellow); font-weight: bold; margin: 15px 0; }
-.review-scroll { max-height: 40vh; overflow-y: auto; text-align: left; margin-bottom: 20px; padding-right: 10px; }
-.review-item { background: #222; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-size: 14px; border-left: 3px solid #555;}
+.score-display { 
+    font-size: 40px; 
+    color: var(--primary-blue); 
+    font-weight: bold; 
+    margin: 15px 0; 
+}
+
+.review-scroll { 
+    max-height: 40vh; 
+    overflow-y: auto; 
+    text-align: left; 
+    margin-bottom: 20px; 
+    padding-right: 10px; 
+}
+
+.review-item { 
+    background: #222; 
+    padding: 15px; 
+    border-radius: 10px; 
+    margin-bottom: 10px; 
+    font-size: 14px; 
+    border-left: 3px solid #555;
+}
+
 .review-item.correct { border-color: #2ecc71; }
 .review-item.wrong { border-color: #e74c3c; }
-.correct-text { color: #2ecc71; font-weight: bold; }
+
+.correct-text { 
+    color: #2ecc71; 
+    font-weight: bold; 
+}
